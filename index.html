@@ -29,12 +29,10 @@
       position: relative;
     }
 
-    html {
-      overflow-y: scroll;
-      scrollbar-width: none;
-    }
+    html { overflow-y: scroll; scrollbar-width: none; }
     html::-webkit-scrollbar {display: none;}
 
+    /* CANVAS TOPOLOGI */
     #network-bg {
       position: fixed;
       top: 0; left: 0;
@@ -43,6 +41,7 @@
       background: transparent;
     }
 
+    /* WELCOME */
     #welcome {
       position: fixed; inset: 0;
       display: flex; align-items: center; justify-content: center;
@@ -53,36 +52,49 @@
     }
     @keyframes fadeOutWelcome {0%,70%{opacity:1}100%{opacity:0;visibility:hidden}}
 
+    /* HEADER PROFIL (pakai container pelindung) */
     .header-profil{
       position:fixed;top:1rem;left:1rem;display:flex;align-items:center;gap:1rem;
       z-index:6;cursor:pointer;opacity:0;animation:fadeInHeader 2s ease 3s forwards;
     }
-    .header-profil img{
-      width:60px;height:60px;border-radius:50%;border:2px solid var(--primary);
-      object-fit:cover;box-shadow:0 0 10px rgba(0,120,255,.4);
-      transition:transform .3s ease;
+    .header-profil .photo-container{
+      position:relative; width:60px; height:60px; border-radius:50%; overflow:hidden;
+      border:2px solid var(--primary); box-shadow:0 0 10px rgba(0,120,255,.4);
+      display:inline-block;
+      background-size:cover; background-position:center;
     }
-    .header-profil img:hover{transform:scale(1.05);}
-    .header-profil h1{font-size:1.25rem;font-weight:600;}
+    .header-profil .photo-container img{
+      width:100%; height:100%; object-fit:cover; display:block;
+      -webkit-user-drag: none; user-select: none; pointer-events: none; /* non-interactive */
+    }
+    .header-profil .photo-protect{
+      position:absolute; inset:0; z-index:10; background:transparent; /* menangkap klik kanan/drag */
+    }
+
+    .header-profil h1{font-size:1.15rem;font-weight:600;}
     @keyframes fadeInHeader{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
 
+    /* PHOTO POPUP (juga pakai container pelindung) */
     .photo-popup{
       position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
       background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);
-      z-index:20;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease;
+      z-index:20;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease;
     }
     .photo-popup.visible{opacity:1;visibility:visible;}
-    .photo-popup img{
-      width:300px;height:300px;border-radius:50%;border:4px solid var(--primary);
-      object-fit:cover;box-shadow:0 0 30px rgba(0,120,255,.4);
-      transform:scale(0.8);animation:zoomIn .4s ease forwards;
-
-      -webkit-user-drag: none;
-      user-select: none;
-      pointer-events: auto;
+    .photo-popup .photo-wrap{
+      position:relative;width:320px;height:320px;border-radius:50%;overflow:hidden;
+      border:4px solid var(--primary);box-shadow:0 0 30px rgba(0,120,255,.4);
+      background-size:cover;background-position:center;
     }
-    @keyframes zoomIn{to{transform:scale(1);}}
+    .photo-popup .photo-wrap img{
+      width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;
+      -webkit-user-drag:none;user-select:none;
+    }
+    .photo-popup .photo-protect{
+      position:absolute;inset:0;z-index:12;background:transparent; /* overlay untuk mencegah klik kanan/save */
+    }
 
+    /* BERANDA */
     #beranda{
       position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
       text-align:center;z-index:5;opacity:0;animation:fadeInBeranda 1.4s ease 3.4s forwards;
@@ -92,21 +104,15 @@
     #beranda h2{
       font-size:1rem;color:var(--muted);margin:1rem 0 1.4rem;
       border-right: 2px solid var(--primary);
-      white-space: nowrap;
-      overflow: hidden;
+      white-space: nowrap; overflow: hidden;
     }
     #beranda h2.done {border-right: none;}
 
     .cta{
       background: linear-gradient(270deg, #2979ff, #64b5ff, #00e5ff, #2979ff);
       background-size: 800% 800%;
-      border:none;
-      border-radius:30px;
-      padding:.8rem 1.4rem;
-      color:#fff;
-      font-weight:600;
-      cursor:pointer;
-      box-shadow:0 8px 20px rgba(0,80,255,.2);
+      border:none;border-radius:30px;padding:.8rem 1.4rem;color:#fff;font-weight:600;
+      cursor:pointer;box-shadow:0 8px 20px rgba(0,80,255,.2);
       transition:transform .2s,box-shadow .2s,opacity .4s ease,transform .4s ease;
       animation: gradientMove 6s ease infinite;
     }
@@ -115,69 +121,52 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    .cta:hover{
-      transform:translateY(-3px);
-      box-shadow:0 16px 35px rgba(0,80,255,.3);
-    }
+    .cta:hover{transform:translateY(-3px);box-shadow:0 16px 35px rgba(0,80,255,.3);}
 
+    /* PROYEK / MENU */
     #proyek{
       position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:flex-start;
-      padding-top:6rem;z-index:5;opacity:0;transition:opacity .4s ease;
-      overflow-y:auto;text-align:center;
+      padding-top:6rem;z-index:5;opacity:0;transition:opacity .45s ease;overflow-y:auto;text-align:center;
     }
     #proyek.visible{display:flex;opacity:1;}
-    .menu-list{width:90%;max-width:700px;display:grid;gap:1rem;margin-bottom:1.5rem;}
+    .menu-list{width:90%;max-width:780px;display:grid;gap:1rem;margin-bottom:1.5rem;}
     .menu-item{
-      background:var(--panel-bg);border:1px solid rgba(100,160,255,.3);
-      border-radius:14px;padding:1.05rem 1.2rem;font-size:1.05rem;
-      color:var(--text);font-weight:600;cursor:pointer;
-      box-shadow:0 6px 20px rgba(0,0,0,.45);
-      transition:transform .22s,box-shadow .22s,background .22s;
+      background:var(--panel-bg);border:1px solid rgba(100,160,255,.18);
+      border-radius:14px;padding:1.05rem 1.2rem;font-size:1.05rem;color:var(--text);font-weight:600;cursor:pointer;
+      box-shadow:0 6px 20px rgba(0,0,0,.45);transition:transform .22s,box-shadow .22s,background .22s;
     }
-    .menu-item:hover{transform:translateY(-6px);background:rgba(0,120,255,0.1);box-shadow:0 16px 35px rgba(0,120,255,.3);}
+    .menu-item:hover{transform:translateY(-6px);background:rgba(0,120,255,0.06);box-shadow:0 16px 35px rgba(0,120,255,.12);}
 
     .back-arrow {
-      border: none;
-      border-radius: 30px;
-      padding: .7rem 1.4rem;
-      cursor: pointer;
-      color: #fff;
-      font-weight: 600;
-      background: linear-gradient(270deg, #2979ff, #64b5ff, #00e5ff, #2979ff);
-      background-size: 800% 800%;
-      box-shadow: 0 6px 20px rgba(0,80,255,.2);
-      animation: gradientMove 6s ease infinite;
-      transition: transform .2s, box-shadow .2s;
+      border:none;border-radius:30px;padding:.7rem 1.4rem;cursor:pointer;color:#fff;font-weight:600;
+      background:linear-gradient(270deg,#2979ff,#64b5ff,#00e5ff,#2979ff);background-size:800% 800%;
+      box-shadow:0 6px 20px rgba(0,80,255,.2);animation:gradientMove 6s ease infinite;transition:transform .18s,box-shadow .18s;
     }
-    .back-arrow:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 35px rgba(0,80,255,.3);
-    }
+    .back-arrow:hover{transform:translateY(-3px);box-shadow:0 16px 35px rgba(0,80,255,.3);}
 
+    /* DETAIL SECTIONS */
     .detail{
-      display:none;flex-direction:column;align-items:center;padding:6rem 1.5rem 2rem;
-      height:100%;overflow-y:auto;opacity:0;transition:opacity .6s ease, transform .6s ease;
-      transform:translateY(20px);
+      display:none;flex-direction:column;align-items:center;padding:6rem 1.5rem 2rem;height:100%;overflow-y:auto;opacity:0;
+      transition:opacity .6s ease, transform .6s ease;transform:translateY(20px);
     }
     .detail.visible{display:flex;opacity:1;transform:translateY(0);}
 
-    .card-grid{
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:1.2rem;margin:2rem 0;width:100%;max-width:900px;
-    }
-    .card{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(100,160,255,.3);
-      border-radius:18px;padding:1rem;
-      opacity:0;transform:translateY(25px);
-      transition:all .6s ease;
-    }
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin:2rem 0;width:100%;max-width:980px;}
+    .card{background:rgba(255,255,255,.04);border:1px solid rgba(100,160,255,.12);border-radius:16px;padding:1rem;
+      opacity:0;transform:translateY(25px);transition:all .6s cubic-bezier(.2,.9,.2,1);}
     .card.show{opacity:1;transform:translateY(0);}
-    .card:hover{transform:translateY(-6px) scale(1.02);background:rgba(0,80,255,0.1);}
-    .card h4{color:var(--primary);margin-bottom:.4rem;}
+    .card:hover{transform:translateY(-6px) scale(1.02);background:rgba(0,80,255,0.04);}
+    .card h4{color:var(--primary);margin-bottom:.35rem;}
     .card p, .card a{color:var(--muted);font-size:.95rem;text-decoration:none;}
+    .card i{margin-right:8px;color:var(--primary);}
 
-    .card i {margin-right: 8px;color: var(--primary);}
+    @media (max-width:520px){
+      #beranda h1{font-size:1.6rem}
+      #welcome{font-size:2rem}
+      .header-profil h1{display:none}
+      .photo-popup .photo-wrap{width:220px;height:220px}
+      .card-grid{gap:.9rem}
+    }
   </style>
 </head>
 <body>
@@ -186,23 +175,31 @@
 
   <div id="welcome">Welcome</div>
 
-  <div class="header-profil" id="profilHeader">
-    <img src="icon.jpeg" alt="Foto profil">
+  <div class="header-profil" id="profilHeader" title="Klik untuk memperbesar foto">
+    <!-- photo-container: header -->
+    <div class="photo-container" id="headerPhoto" style="background-image:url('icon.jpeg')">
+      <img src="icon.jpeg" alt="Foto profil" draggable="false">
+      <div class="photo-protect" id="headerProtect"></div>
+    </div>
     <h1>Bagas Saputra</h1>
   </div>
 
-  <div class="photo-popup" id="photoPopup">
-    <img src="icon.jpeg" alt="Foto Besar">
+  <div class="photo-popup" id="photoPopup" aria-hidden="true">
+    <div class="photo-wrap" id="popupPhotoWrap" style="background-image:url('icon.jpeg')">
+      <!-- keep img for accessibility but non-interactive -->
+      <img src="icon.jpeg" alt="Foto Besar" draggable="false">
+      <div class="photo-protect" id="popupProtect" title="Klik untuk menutup"></div>
+    </div>
   </div>
 
-  <section id="beranda">
+  <section id="beranda" aria-label="Beranda">
     <h1>Hai, Saya Bagas Saputra</h1>
-    <h2 id="typing-text"></h2>
+    <h2 id="typing-text" aria-live="polite"></h2>
     <button class="cta" id="lihatProyekBtn">Tentang Saya</button>
   </section>
 
-  <section id="proyek">
-    <h2>Tentang Saya</h2>
+  <section id="proyek" aria-label="Menu Tentang Saya">
+    <h2 style="margin-top:1rem">Tentang Saya</h2>
     <div class="menu-list">
       <div class="menu-item" data-target="keahlian">Keahlian Saya</div>
       <div class="menu-item" data-target="pengalaman">Pengalaman Pribadi</div>
@@ -214,149 +211,275 @@
     <button class="back-arrow" id="backBtn">Kembali</button>
   </section>
 
-  <!-- === Bagian Detail Lengkap === -->
-
-  <section id="keahlian" class="detail">
+  <!-- DETAIL: Semua menu -->
+  <section id="keahlian" class="detail" aria-label="Keahlian Saya">
     <h2>Keahlian Saya</h2>
     <div class="card-grid">
-      <div class="card"><h4><i class="fa-solid fa-network-wired"></i>Jaringan Komputer</h4><p>Mampu merancang dan mengkonfigurasi jaringan LAN, serta memahami topologi dan perangkat jaringan.</p></div>
-      <div class="card"><h4><i class="fa-solid fa-computer"></i>Perakitan Komputer</h4><p>Menguasai teknik perakitan dan perawatan komputer, serta instalasi sistem operasi.</p></div>
-      <div class="card"><h4><i class="fa-solid fa-terminal"></i>Pemrograman Dasar</h4><p>Memahami dasar logika pemrograman dan penggunaan bahasa seperti HTML, CSS, dan JavaScript.</p></div>
-      <div class="card"><h4><i class="fa-solid fa-server"></i>Administrasi Server</h4><p>Dapat melakukan konfigurasi server dasar (FTP, DNS, DHCP) menggunakan Linux maupun Windows Server.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-network-wired"></i>Jaringan Komputer</h4><p>Mampu merancang dan mengkonfigurasi jaringan LAN, memahami topologi, VLAN, serta perangkat jaringan seperti switch dan router.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-computer"></i>Perakitan & Perawatan PC</h4><p>Skilled dalam merakit komputer, troubleshooting hardware, mengganti komponen, dan optimasi pendinginan serta kabel manajemen.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-terminal"></i>Pemrograman Dasar</h4><p>Memahami HTML, CSS, JavaScript dasar; mampu membuat antarmuka web sederhana dan menambahkan interaktivitas.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-server"></i>Administrasi Server</h4><p>Dasar konfigurasi server (FTP, DNS, DHCP), pemahaman sistem operasi Linux, dan manajemen layanan jaringan.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
-  <section id="pengalaman" class="detail">
+  <section id="pengalaman" class="detail" aria-label="Pengalaman Pribadi">
     <h2>Pengalaman Pribadi</h2>
     <div class="card-grid">
-      <div class="card"><h4><i class="fa-solid fa-user-gear"></i>Teknisi Komputer</h4><p>Pernah membantu memperbaiki komputer dan laptop di lingkungan sekolah dan rumah, termasuk instalasi ulang OS dan troubleshooting.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-user-gear"></i>Teknisi Komputer</h4><p>Pernah membantu memperbaiki komputer dan laptop di lingkungan sekolah dan rumah, termasuk instalasi ulang OS dan troubleshooting umum.</p></div>
       <div class="card"><h4><i class="fa-solid fa-code"></i>Web Sederhana</h4><p>Membuat website portofolio pribadi menggunakan HTML, CSS, dan animasi dasar untuk tampilan interaktif.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
-  <section id="karier" class="detail">
+  <section id="karier" class="detail" aria-label="Pengalaman di TKJ">
     <h2>Pengalaman di TKJ</h2>
     <div class="card-grid">
-      <div class="card"><h4><i class="fa-solid fa-router"></i>Konfigurasi Jaringan</h4><p>Melakukan praktik langsung dalam merancang dan mengatur jaringan menggunakan router, switch, dan kabel UTP.</p></div>
-      <div class="card"><h4><i class="fa-solid fa-server"></i>Server Sekolah</h4><p>Terlibat dalam simulasi pembuatan server sekolah berbasis Linux untuk file sharing antar komputer.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-router"></i>Konfigurasi Jaringan</h4><p>Melakukan praktik langsung merancang dan mengatur jaringan menggunakan router, switch, serta kabel UTP dan teknik crimping.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-server"></i>Server Sekolah</h4><p>Terlibat dalam simulasi pembuatan server berbasis Linux untuk file sharing dan layanan dasar antar komputer laboratorium.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
-  <section id="visi" class="detail">
+  <section id="visi" class="detail" aria-label="Visi dan Misi">
     <h2>Visi dan Misi</h2>
     <div class="card-grid">
       <div class="card"><h4><i class="fa-solid fa-eye"></i>Visi</h4><p>Menjadi teknisi jaringan dan IT support yang profesional dan berintegritas tinggi.</p></div>
-      <div class="card"><h4><i class="fa-solid fa-bullseye"></i>Misi</h4><p>Mengembangkan kemampuan di bidang jaringan, memperluas wawasan teknologi, dan terus belajar agar mampu bersaing di dunia industri IT.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-bullseye"></i>Misi</h4><p>Mengembangkan kemampuan di bidang jaringan, memperluas wawasan teknologi, serta konsisten belajar agar siap industri.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
-  <section id="prinsip" class="detail">
+  <section id="prinsip" class="detail" aria-label="Prinsip Hidup">
     <h2>Prinsip Hidup</h2>
     <div class="card-grid">
-      <div class="card"><h4><i class="fa-solid fa-heart"></i>Integritas</h4><p>Selalu berusaha jujur dan bertanggung jawab dalam setiap pekerjaan.</p></div>
-      <div class="card"><h4><i class="fa-solid fa-rocket"></i>Belajar Tanpa Henti</h4><p>Teknologi terus berkembang, maka belajar adalah kewajiban setiap hari.</p></div>
-      <div class="card"><h4><i class="fa-solid fa-handshake"></i>Kerja Sama</h4><p>Berhasil bukan karena sendiri, tapi karena bisa bekerja sama dengan tim.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-heart"></i>Integritas</h4><p>Selalu jujur dan bertanggung jawab dalam setiap tugas.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-rocket"></i>Belajar Tanpa Henti</h4><p>Teknologi berkembang cepat — terus memperbarui keterampilan adalah prioritas.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-handshake"></i>Kerja Sama</h4><p>Keberhasilan tim lebih penting daripada hanya pencapaian individu.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
-  <section id="kontak" class="detail">
+  <section id="kontak" class="detail" aria-label="Kontak">
     <h2>Kontak Saya</h2>
     <div class="card-grid">
-      <div class="card"><h4><i class="fa-solid fa-envelope"></i>Email</h4><p>bagas@example.com</p></div>
-      <div class="card"><h4><i class="fa-brands fa-whatsapp"></i>WhatsApp</h4><p>+62 812-3456-7890</p></div>
-      <div class="card"><h4><i class="fa-brands fa-instagram"></i>Instagram</h4><a href="#">@bagas.tkj</a></div>
+      <div class="card"><h4><i class="fa-solid fa-envelope"></i>Email</h4><p>akuntopup836@gmail.com</p></div>
+      <div class="card"><h4><i class="fa-brands fa-whatsapp"></i>WhatsApp</h4><p>085183710837</p></div>
+      <div class="card"><h4><i class="fa-brands fa-instagram"></i>Instagram</h4><p><a href="https://instagram.com/edds_zl" target="_blank" rel="noopener noreferrer">@edds_zl</a></p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
   <script>
+    /* CANVAS TOPOLOGI WITH DPR SCALING */
+    const canvas = document.getElementById("network-bg");
+    const ctx = canvas.getContext("2d");
+    let w = 0, h = 0, nodes = [];
+    const NODE_COUNT = 50;
+    function resizeCanvas() {
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (nodes.length === 0) {
+        for (let i = 0; i < NODE_COUNT; i++) {
+          nodes.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            dx: (Math.random() - 0.5) * 0.6,
+            dy: (Math.random() - 0.5) * 0.6
+          });
+        }
+      } else {
+        nodes.forEach(n => { n.x = Math.max(0, Math.min(w, n.x)); n.y = Math.max(0, Math.min(h, n.y)); });
+      }
+    }
+    window.addEventListener('resize', resizeCanvas, {passive:true});
+    resizeCanvas();
+
+    let hue = 200;
+    function drawNetwork() {
+      ctx.clearRect(0,0,w,h);
+      hue = (hue + 0.35) % 360;
+      const glow = `hsl(${Math.round(hue)},100%,65%)`;
+      for (let n of nodes) {
+        n.x += n.dx; n.y += n.dy;
+        if (n.x <= 0 || n.x >= w) n.dx *= -1;
+        if (n.y <= 0 || n.y >= h) n.dy *= -1;
+      }
+      for (let i = 0; i < NODE_COUNT; i++) {
+        for (let j = i + 1; j < NODE_COUNT; j++) {
+          const a = nodes[i], b = nodes[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < 140) {
+            ctx.beginPath();
+            ctx.strokeStyle = glow;
+            ctx.lineWidth = 1;
+            ctx.globalAlpha = Math.max(0.08, 1 - d / 140);
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+        }
+      }
+      for (let n of nodes) {
+        ctx.beginPath();
+        ctx.fillStyle = glow;
+        ctx.globalAlpha = 0.95;
+        ctx.arc(n.x, n.y, 1.8, 0, Math.PI*2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+      requestAnimationFrame(drawNetwork);
+    }
+    requestAnimationFrame(drawNetwork);
+
+    /* UI: Welcome, typing, CTA reveal */
     const welcome = document.getElementById("welcome");
-    welcome.addEventListener("animationend", () => welcome.remove());
+    welcome.addEventListener("animationend", () => { if (welcome && welcome.parentNode) welcome.parentNode.removeChild(welcome); });
 
     const typingTarget = document.getElementById("typing-text");
     const lihatProyekBtn = document.getElementById("lihatProyekBtn");
     const text = "Pelajar Teknik Komputer dan Jaringan";
-    let i = 0;
+    let idx = 0;
     function typeEffect() {
-      if (i < text.length) {
-        typingTarget.textContent += text.charAt(i);
-        i++;
-        setTimeout(typeEffect, 80);
+      if (idx < text.length) {
+        typingTarget.textContent += text.charAt(idx);
+        idx++;
+        setTimeout(typeEffect, 72);
       } else {
         typingTarget.classList.add("done");
-        setTimeout(() => {
-          lihatProyekBtn.style.opacity = "1";
-          lihatProyekBtn.style.transform = "translateY(0)";
-        }, 300);
+        setTimeout(()=>{ lihatProyekBtn.style.opacity = "1"; lihatProyekBtn.style.transform = "translateY(0)"; }, 250);
       }
     }
     window.addEventListener("load", () => {
       lihatProyekBtn.style.opacity = "0";
-      lihatProyekBtn.style.transform = "translateY(20px)";
-      lihatProyekBtn.style.transition = "all 0.6s ease";
-      setTimeout(typeEffect, 3600);
+      lihatProyekBtn.style.transform = "translateY(18px)";
+      lihatProyekBtn.style.transition = "all 0.55s cubic-bezier(.2,.9,.2,1)";
+      setTimeout(typeEffect, 1600);
     });
 
+    /* NAVIGATION & TRANSITIONS */
     const beranda = document.getElementById("beranda");
     const proyek = document.getElementById("proyek");
-    const back = document.getElementById("backBtn");
+    const backBtn = document.getElementById("backBtn");
     const menuItems = document.querySelectorAll(".menu-item");
     const backMenus = document.querySelectorAll(".backMenu");
+    let animating = false;
 
-    lihatProyekBtn.addEventListener("click", () => {
-      beranda.style.opacity = "0";
-      setTimeout(() => {
-        beranda.style.display = "none";
-        proyek.style.display = "flex";
-        setTimeout(() => proyek.classList.add("visible"), 50);
-      }, 400);
-    });
-
-    back.addEventListener("click", () => {
+    function showProyekFromBeranda() {
+      if (animating) return; animating = true;
+      beranda.style.transition = "opacity .45s ease"; beranda.style.opacity = "0";
+      setTimeout(()=>{ beranda.style.display="none"; proyek.style.display="flex"; setTimeout(()=>{ proyek.classList.add("visible"); animating=false; }, 40); }, 420);
+    }
+    function backToBerandaFromProyek() {
+      if (animating) return; animating = true;
       proyek.classList.remove("visible");
-      setTimeout(() => {
-        proyek.style.display = "none";
-        beranda.style.display = "flex";
-        setTimeout(() => beranda.style.opacity = "1", 50);
-      }, 400);
-    });
+      setTimeout(()=>{ proyek.style.display="none"; beranda.style.display="flex"; setTimeout(()=>{ beranda.style.opacity="1"; animating=false; }, 40); }, 420);
+    }
+    lihatProyekBtn.addEventListener("click", showProyekFromBeranda);
+    backBtn.addEventListener("click", backToBerandaFromProyek);
 
     menuItems.forEach(btn => {
       btn.addEventListener("click", () => {
+        if (animating) return; animating = true;
         proyek.classList.remove("visible");
-        setTimeout(() => {
-          proyek.style.display = "none";
+        setTimeout(()=> {
+          proyek.style.display="none";
           const target = document.getElementById(btn.dataset.target);
-          target.style.display = "flex";
-          setTimeout(() => target.classList.add("visible"), 50);
+          if (!target) { animating=false; return; }
+          target.style.display="flex";
           const cards = target.querySelectorAll(".card");
-          cards.forEach((c, idx) => setTimeout(() => c.classList.add("show"), 150 * idx));
-        }, 400);
+          cards.forEach(c => c.classList.remove("show"));
+          setTimeout(()=>{ target.classList.add("visible"); cards.forEach((c,i)=>setTimeout(()=>c.classList.add("show"), 120*i)); animating=false; }, 50);
+        }, 420);
       });
     });
 
     backMenus.forEach(btn => {
       btn.addEventListener("click", () => {
+        if (animating) return; animating = true;
         const section = btn.closest(".detail");
         section.classList.remove("visible");
-        setTimeout(() => {
-          section.style.display = "none";
-          proyek.style.display = "flex";
-          setTimeout(() => proyek.classList.add("visible"), 50);
-        }, 400);
+        setTimeout(()=>{ section.style.display="none"; proyek.style.display="flex"; setTimeout(()=>{ proyek.classList.add("visible"); animating=false; },50); }, 420);
       });
     });
 
+    /* PHOTO POPUP + PROTECTION */
     const profilHeader = document.getElementById("profilHeader");
+    const headerPhoto = document.getElementById("headerPhoto");
+    const headerProtect = document.getElementById("headerProtect");
     const photoPopup = document.getElementById("photoPopup");
-    profilHeader.addEventListener("click", () => photoPopup.classList.add("visible"));
-    photoPopup.addEventListener("click", () => photoPopup.classList.remove("visible"));
+    const popupPhotoWrap = document.getElementById("popupPhotoWrap");
+    const popupProtect = document.getElementById("popupProtect");
+
+    // buka popup saat klik header (overlay menangkap event)
+    profilHeader.addEventListener("click", () => {
+      // show popup
+      photoPopup.classList.add("visible");
+      photoPopup.setAttribute("aria-hidden", "false");
+    });
+
+    // klik overlay di popup untuk menutup
+    popupProtect.addEventListener("click", () => {
+      photoPopup.classList.remove("visible");
+      photoPopup.setAttribute("aria-hidden", "true");
+    });
+
+    // juga tutup saat pengguna klik area di luar (photoPopup sendiri)
+    photoPopup.addEventListener("click", (e) => {
+      if (e.target === photoPopup) {
+        photoPopup.classList.remove("visible");
+        photoPopup.setAttribute("aria-hidden", "true");
+      }
+    });
+
+    /* PROTECTION: cegah klik kanan hanya pada gambar / overlay area yang kita pakai */
+    // cegah contextmenu bila target adalah gambar atau berada di dalam photo-container / photo-wrap
+    document.addEventListener('contextmenu', (e) => {
+      if (e.target && (e.target.tagName === 'IMG' || e.target.closest && (e.target.closest('.photo-container') || e.target.closest('.photo-wrap')))) {
+        e.preventDefault();
+      }
+    });
+
+    // cegah dragstart untuk gambar
+    document.addEventListener('dragstart', (e) => {
+      if (e.target && e.target.tagName === 'IMG') e.preventDefault();
+    });
+
+    // cegah beberapa shortcut umum untuk mengunduh / inspect (note: ini memblock untuk semua halaman)
+    window.addEventListener('keydown', (e) => {
+      // F12
+      if (e.key === 'F12') { e.preventDefault(); return; }
+      // Ctrl+S, Ctrl+U
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) { e.preventDefault(); return; }
+      // Ctrl+Shift+I / J / C (DevTools)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key)) { e.preventDefault(); return; }
+    });
+
+    /* Accessibility: close popup and details with Escape */
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (photoPopup.classList.contains('visible')) {
+          photoPopup.classList.remove('visible'); photoPopup.setAttribute('aria-hidden','true');
+        }
+        const openDetail = document.querySelector('.detail.visible');
+        if (openDetail) {
+          openDetail.classList.remove('visible');
+          setTimeout(()=>{ openDetail.style.display='none'; proyek.style.display='flex'; setTimeout(()=>proyek.classList.add('visible'),40); }, 320);
+        }
+      }
+    });
+
+    /* Minor safety checks: ensure images are non-draggable even if HTML misses attribute */
+    document.querySelectorAll('img').forEach(img => { img.setAttribute('draggable','false'); img.style.userSelect='none'; });
+
+    /* End of script */
   </script>
 </body>
 </html>
-
