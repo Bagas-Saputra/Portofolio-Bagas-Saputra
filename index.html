@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Portofolio Bagas Saputra - Pelajar Teknik Komputer dan Jaringan" />
+  <title>Portofolio Bagas Saputra</title>
+
+  <!-- Tambahkan link Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #64b5ff;
+      --accent: #2979ff;
+      --bg-dark: #0a0f1f;
+      --panel-bg: rgba(255,255,255,0.06);
+      --text: #ffffff;
+      --muted: #d8eaff;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
+    html,body{
+      height:100%;
+      width:100%;
+      background:linear-gradient(135deg,var(--bg-dark),#001a3a);
+      color:var(--text);
+      overflow-x:hidden;
+      scroll-behavior:smooth;
+    }
+
+    canvas#network-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:transparent;}
+
+    .neon-blur{
+      position:fixed;width:500px;height:500px;border-radius:50%;
+      background:radial-gradient(circle,rgba(0,100,255,0.36),transparent 70%);
+      filter:blur(140px);z-index:0;pointer-events:none;
+      animation:moveBlur 20s ease-in-out infinite alternate;
+    }
+    @keyframes moveBlur{
+      0%{top:10%;left:10%}
+      50%{top:45%;left:68%}
+      100%{top:18%;left:34%}
+    }
+
+    #welcome{
+      position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,#001a3a,#0a0f1f);color:var(--text);
+      font-size:3rem;font-weight:700;z-index:15;
+      animation:fadeOutWelcome 3s ease forwards;
+    }
+    @keyframes fadeOutWelcome{0%,70%{opacity:1}100%{opacity:0;visibility:hidden}}
+
+    .header-profil{
+      position:fixed;top:1rem;left:1rem;display:flex;align-items:center;gap:1rem;
+      z-index:6;opacity:0;animation:fadeInHeader 2s ease 3s forwards;
+    }
+    .header-profil img{
+      width:60px;height:60px;border-radius:50%;border:2px solid var(--primary);
+      object-fit:cover;box-shadow:0 0 12px rgba(0,140,255,.45);
+    }
+    .header-profil h1{color:var(--text);font-size:1.25rem;text-shadow:0 0 8px rgba(255,255,255,.12);font-weight:600;}
+    @keyframes fadeInHeader{from{opacity:0;transform:translateY(-15px)}to{opacity:1;transform:none}}
+
+    #beranda{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5;opacity:0;animation:fadeInBeranda 1.4s ease 3.4s forwards;text-align:center;}
+    @keyframes fadeInBeranda{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+    #beranda h1{font-size:2.6rem;text-shadow:0 0 20px rgba(0,140,255,.6);margin-bottom:0.5rem;}
+    #beranda h2{font-size:1.05rem;color:var(--muted);margin-bottom:1.2rem;border-right:2px solid var(--accent);white-space:nowrap;overflow:hidden;display:inline-block;max-width:90vw;animation:typing 4s steps(40,end) 1s forwards, blink .75s step-end infinite;}
+    #beranda h2.finished{border-right:none;}
+    @keyframes typing{from{width:0}to{width:34ch}}@keyframes blink{50%{border-color:transparent}}
+
+    .cta{background:linear-gradient(135deg,var(--accent),var(--primary));border:none;border-radius:30px;padding:.8rem 1.4rem;color:#fff;font-weight:600;cursor:pointer;box-shadow:0 8px 20px rgba(0,80,255,.15);transition:transform .22s,box-shadow .22s;}
+    .cta:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,80,255,.22);}
+
+    #proyek{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:flex-start;background:transparent;padding-top:6rem;z-index:5;opacity:0;transition:opacity .5s ease;overflow-y:auto;}
+    #proyek.visible{display:flex;opacity:1}
+
+    .menu-list{width:90%;max-width:680px;display:grid;gap:1rem;margin-bottom:1.5rem;}
+    .menu-item{background:var(--panel-bg);border:1px solid rgba(100,160,255,.26);border-radius:14px;padding:1.05rem 1.2rem;font-size:1.05rem;color:var(--text);font-weight:600;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.45);transition:transform .22s,box-shadow .22s,background .22s;}
+    .menu-item:hover{transform:translateY(-6px);background:rgba(0,120,255,0.1);box-shadow:0 18px 40px rgba(0,120,255,.2);}
+
+    .detail{display:none;flex-direction:column;align-items:center;padding:6rem 1.5rem 2rem;text-align:center;height:100%;overflow-y:auto;opacity:0;transition:opacity .45s ease;}
+    .detail.visible{display:flex;opacity:1}
+    .detail h3{font-size:1.8rem;margin-bottom:1rem;text-shadow:0 0 12px rgba(150,200,255,.25);}
+    .detail p{margin-bottom:1rem;line-height:1.6;color:var(--muted);}
+    ul{margin:0.5rem 0 1.5rem;padding-left:1.2rem;text-align:left;}
+    li{margin-bottom:0.5rem;}
+
+    .kontak-ikon {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .kontak-ikon a {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: white;
+      text-decoration: none;
+      font-size: 1.05rem;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .kontak-ikon a:hover {
+      transform: scale(1.05);
+      opacity: 0.8;
+      color: var(--primary);
+    }
+    .kontak-ikon i {
+      font-size: 1.8rem;
+      width: 36px;
+      text-align: center;
+    }
+
+    .back-arrow{font-size:1rem;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:.5rem 1rem;cursor:pointer;margin-top:1.5rem;}
+    .back-arrow:hover{background:rgba(255,255,255,.1);}
+  </style>
+</head>
+<body>
+  <canvas id="network-bg"></canvas>
+  <div id="welcome">Welcome</div>
+  <div class="neon-blur"></div>
+
+  <div class="header-profil visible">
+    <img src="icon.jpeg" alt="Foto profil Bagas Saputra">
+    <h1>Bagas Saputra</h1>
+  </div>
+
+  <section id="beranda">
+    <h1>HAI, SAYA BAGAS SAPUTRA</h1>
+    <h2>Pelajar Teknik Komputer dan Jaringan</h2>
+    <button class="cta" id="lihatProyekBtn">Tentang Saya</button>
+  </section>
+
+  <section id="proyek">
+    <h2>Tentang Saya</h2>
+    <div class="menu-list">
+      <div class="menu-item" data-target="karier">Pengalaman di TKJ</div>
+      <div class="menu-item" data-target="keahlian">Keahlian & Pengalaman</div>
+      <div class="menu-item" data-target="visi">Visi dan Misi</div>
+      <div class="menu-item" data-target="prinsip">Prinsip Hidup</div>
+      <div class="menu-item" data-target="kontak">Kontak Saya</div>
+    </div>
+    <button class="back-arrow" id="backBtn">Kembali</button>
+  </section>
+
+  <section class="detail" id="karier">
+    <h3>Pengalaman di TKJ</h3>
+    <p>Sebagai pelajar di jurusan Teknik Komputer dan Jaringan (TKJ), saya telah mempelajari dan menerapkan berbagai aspek dunia jaringan dan teknologi komputer.</p>
+    <ul>
+      <li>Merakit dan mengonfigurasi komputer serta server untuk keperluan sekolah dan praktikum.</li>
+      <li>Mengelola jaringan LAN dan WLAN di lingkungan sekolah menggunakan router Mikrotik dan Cisco Packet Tracer.</li>
+      <li>Melakukan instalasi sistem operasi seperti Windows Server dan Linux Ubuntu.</li>
+      <li>Mempelajari dasar-dasar keamanan jaringan, firewall, dan troubleshooting jaringan.</li>
+      <li>Berpartisipasi dalam kegiatan magang di perusahaan lokal untuk pengalaman langsung dalam dunia IT Support.</li>
+    </ul>
+    <button class="back-arrow backMenu">Kembali</button>
+  </section>
+
+  <section class="detail" id="keahlian">
+    <h3>Keahlian & Pengalaman</h3>
+    <p>Saya menguasai berbagai bidang teknis dalam dunia IT dan jaringan komputer. Beberapa keahlian utama saya meliputi:</p>
+    <ul>
+      <li>Perakitan dan pemeliharaan komputer, termasuk upgrade hardware dan perbaikan sistem.</li>
+      <li>Instalasi jaringan kabel dan nirkabel, konfigurasi IP, serta penggunaan alat jaringan.</li>
+      <li>Konfigurasi Mikrotik, DHCP Server, VPN, dan VirtualBox.</li>
+      <li>Dasar pemrograman web menggunakan HTML, CSS, dan JavaScript.</li>
+      <li>Pemanfaatan software simulasi jaringan seperti Cisco Packet Tracer dan GNS3.</li>
+    </ul>
+    <p>Saya terus mengembangkan diri di bidang teknologi, terutama dalam memahami konsep keamanan siber dan cloud networking.</p>
+    <button class="back-arrow backMenu">Kembali</button>
+  </section>
+
+  <section class="detail" id="visi">
+    <h3>Visi dan Misi</h3>
+    <p><strong>Visi:</strong> Menjadi teknisi jaringan profesional yang mampu menciptakan solusi digital modern dan efisien untuk mendukung transformasi teknologi di Indonesia.</p>
+    <p><strong>Misi:</strong></p>
+    <ul>
+      <li>Meningkatkan kemampuan di bidang jaringan komputer dan keamanan data.</li>
+      <li>Menerapkan pengetahuan teknologi untuk membantu masyarakat dan UMKM.</li>
+      <li>Terus belajar tentang perkembangan teknologi terbaru seperti IoT, Cloud, dan AI Networking.</li>
+      <li>Menjaga integritas, kedisiplinan, dan tanggung jawab dalam setiap pekerjaan.</li>
+    </ul>
+    <button class="back-arrow backMenu">Kembali</button>
+  </section>
+
+  <section class="detail" id="prinsip">
+    <h3>Prinsip Hidup</h3>
+    <p>Saya percaya bahwa kesuksesan dalam dunia teknologi bukan hanya tentang kemampuan teknis, tetapi juga tentang sikap, etika, dan semangat untuk terus belajar.</p>
+    <ul>
+      <li>“Jangan takut mencoba hal baru, karena dari situ kita menemukan batas kemampuan kita.”</li>
+      <li>Selalu disiplin, tepat waktu, dan bertanggung jawab terhadap tugas yang diberikan.</li>
+      <li>Berpikir logis dan kreatif dalam menyelesaikan masalah.</li>
+      <li>Menghargai kerja tim dan kolaborasi sebagai bagian penting dari setiap proyek.</li>
+    </ul>
+    <button class="back-arrow backMenu">Kembali</button>
+  </section>
+
+  <section class="detail" id="kontak">
+    <h3>Kontak Saya</h3>
+    <div class="kontak-ikon">
+      <a href="mailto:bagassaputra@email.com" target="_blank"><i class="fa-solid fa-envelope"></i> Email: bagassaputra@email.com</a>
+      <a href="https://wa.me/6281234567890" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp: +62 812-3456-7890</a>
+      <a href="https://instagram.com/bagassaputra" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram: @bagassaputra</a>
+    </div>
+    <button class="back-arrow backMenu">Kembali</button>
+  </section>
+
+  <script>
+    const welcome=document.getElementById('welcome');
+    const beranda=document.getElementById('beranda');
+    const proyek=document.getElementById('proyek');
+    const lihat=document.getElementById('lihatProyekBtn');
+    const back=document.getElementById('backBtn');
+    const menuItems=document.querySelectorAll('.menu-item');
+    const backMenus=document.querySelectorAll('.backMenu');
+    const typingText=beranda.querySelector('h2');
+    const header=document.querySelector('.header-profil');
+
+    welcome.addEventListener('animationend',()=>welcome.remove());
+    typingText.addEventListener('animationend',e=>{if(e.animationName==='typing')typingText.classList.add('finished');});
+    lihat.addEventListener('click',()=>{header.style.opacity='0';beranda.style.opacity='0';setTimeout(()=>{beranda.style.display='none';proyek.style.display='flex';setTimeout(()=>proyek.classList.add('visible'),50);},400);});
+    back.addEventListener('click',()=>{proyek.classList.remove('visible');setTimeout(()=>{proyek.style.display='none';beranda.style.display='flex';setTimeout(()=>{beranda.style.opacity='1';header.style.opacity='1';},50);},300);});
+    menuItems.forEach(i=>i.addEventListener('click',()=>openDetail(i.dataset.target)));
+    function openDetail(id){proyek.classList.remove('visible');setTimeout(()=>{proyek.style.display='none';const t=document.getElementById(id);t.style.display='flex';t.scrollTop=0;setTimeout(()=>t.classList.add('visible'),50);},300);}
+    backMenus.forEach(btn=>btn.addEventListener('click',()=>{const p=btn.closest('.detail');p.classList.remove('visible');setTimeout(()=>{p.style.display='none';proyek.style.display='flex';setTimeout(()=>proyek.classList.add('visible'),50);},250);}));
+    const canvas=document.getElementById('network-bg');const ctx=canvas.getContext('2d');let w,h,points=[];function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;points=[];for(let i=0;i<60;i++){points.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*0.6,vy:(Math.random()-.5)*0.6});}}window.addEventListener('resize',resize);resize();function animate(){ctx.clearRect(0,0,w,h);for(let p of points){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,1.5,0,Math.PI*2);ctx.fillStyle='rgba(100,180,255,0.8)';ctx.fill();}for(let i=0;i<points.length;i++){for(let j=i+1;j<points.length;j++){const dx=points[i].x-points[j].x;const dy=points[i].y-points[j].y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.beginPath();ctx.moveTo(points[i].x,points[i].y);ctx.lineTo(points[j].x,points[j].y);ctx.strokeStyle=`rgba(100,180,255,${1-dist/120})`;ctx.stroke();}}}requestAnimationFrame(animate);}animate();
+  </script>
+</body>
+</html>
