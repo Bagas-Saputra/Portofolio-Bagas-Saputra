@@ -29,16 +29,12 @@
       position: relative;
     }
 
-    /* ==== Hilangkan scrollbar muncul tiba-tiba ==== */
     html {
       overflow-y: scroll;
-      scrollbar-width: none; /* Firefox */
+      scrollbar-width: none;
     }
-    html::-webkit-scrollbar {
-      display: none; /* Chrome, Edge, Safari */
-    }
+    html::-webkit-scrollbar {display: none;}
 
-    /* ===== Background Animasi Topologi Jaringan ===== */
     #network-bg {
       position: fixed;
       top: 0; left: 0;
@@ -145,11 +141,16 @@
     .card:hover{transform:translateY(-6px) scale(1.02);background:rgba(0,80,255,0.1);}
     .card h4{color:var(--primary);margin-bottom:.4rem;}
     .card p, .card a{color:var(--muted);font-size:.95rem;text-decoration:none;}
+
+    /* === Tambahan untuk ikon === */
+    .card i {
+      margin-right: 8px;
+      color: var(--primary);
+    }
   </style>
 </head>
 <body>
 
-  <!-- Background Animasi Topologi -->
   <canvas id="network-bg"></canvas>
 
   <div id="welcome">Welcome</div>
@@ -182,7 +183,8 @@
     <button class="back-arrow" id="backBtn">Kembali</button>
   </section>
 
-  <!-- Semua detail -->
+  <!-- === Bagian lain tetap sama === -->
+
   <section id="keahlian" class="detail">
     <h3>Keahlian Saya</h3>
     <div class="card-grid">
@@ -234,18 +236,28 @@
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
+  <!-- === BAGIAN KONTAK DENGAN ICON === -->
   <section id="kontak" class="detail">
     <h3>Kontak Saya</h3>
     <div class="card-grid">
-      <div class="card"><h4>Email</h4><p>akuntopup836@gmail.com</p></div>
-      <div class="card"><h4>WhatsApp</h4><p>085183710837</p></div>
-      <div class="card"><h4>Instagram</h4><p>@Bagas_Saputra</p></div>
+      <div class="card">
+        <h4><i class="fa-solid fa-envelope"></i>Email</h4>
+        <p><a href="mailto:akuntopup836@gmail.com">akuntopup836@gmail.com</a></p>
+      </div>
+      <div class="card">
+        <h4><i class="fa-brands fa-whatsapp"></i>WhatsApp</h4>
+        <p><a href="https://wa.me/6285183710837" target="_blank">085183710837</a></p>
+      </div>
+      <div class="card">
+        <h4><i class="fa-brands fa-instagram"></i>Instagram</h4>
+        <p><a href="https://instagram.com/Bagas_Saputra" target="_blank">@Bagas_Saputra</a></p>
+      </div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
   <script>
-    /* ===== Efek Ngetik ===== */
+    /* Semua script tetap sama */
     const welcome = document.getElementById("welcome");
     welcome.addEventListener("animationend", () => welcome.remove());
 
@@ -273,7 +285,6 @@
       setTimeout(typeEffect, 3600);
     });
 
-    /* ===== Navigasi Halaman ===== */
     const beranda = document.getElementById("beranda");
     const proyek = document.getElementById("proyek");
     const back = document.getElementById("backBtn");
@@ -332,7 +343,6 @@
     profilHeader.addEventListener("click", () => photoPopup.classList.add("visible"));
     photoPopup.addEventListener("click", () => photoPopup.classList.remove("visible"));
 
-    /* ===== Animasi Topologi Jaringan ===== */
     const canvas = document.getElementById("network-bg");
     const ctx = canvas.getContext("2d");
     let particlesArray;
