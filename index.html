@@ -26,6 +26,25 @@
       color:var(--text);
       overflow-x:hidden;
       scroll-behavior:smooth;
+      position: relative;
+    }
+
+    /* ==== Hilangkan scrollbar muncul tiba-tiba ==== */
+    html {
+      overflow-y: scroll;
+      scrollbar-width: none; /* Firefox */
+    }
+    html::-webkit-scrollbar {
+      display: none; /* Chrome, Edge, Safari */
+    }
+
+    /* ===== Background Animasi Topologi Jaringan ===== */
+    #network-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0;
+      background: transparent;
     }
 
     #welcome {
@@ -70,12 +89,19 @@
     }
     @keyframes fadeInBeranda{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
     #beranda h1{font-size:2.6rem;text-shadow:0 0 20px rgba(0,140,255,.6);}
-    #beranda h2{font-size:1rem;color:var(--muted);margin:1rem 0 1.4rem;}
+    #beranda h2{
+      font-size:1rem;color:var(--muted);margin:1rem 0 1.4rem;
+      border-right: 2px solid var(--primary);
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    #beranda h2.done {border-right: none;}
+
     .cta{
       background:linear-gradient(135deg,var(--accent),var(--primary));
       border:none;border-radius:30px;padding:.8rem 1.4rem;color:#fff;font-weight:600;
       cursor:pointer;box-shadow:0 8px 20px rgba(0,80,255,.2);
-      transition:transform .2s,box-shadow .2s;
+      transition:transform .2s,box-shadow .2s,opacity .4s ease,transform .4s ease;
     }
     .cta:hover{transform:translateY(-3px);box-shadow:0 16px 35px rgba(0,80,255,.3);}
 
@@ -123,6 +149,9 @@
 </head>
 <body>
 
+  <!-- Background Animasi Topologi -->
+  <canvas id="network-bg"></canvas>
+
   <div id="welcome">Welcome</div>
 
   <div class="header-profil" id="profilHeader">
@@ -136,7 +165,7 @@
 
   <section id="beranda">
     <h1>Hai, Saya Bagas Saputra</h1>
-    <h2>Pelajar Teknik Komputer dan Jaringan</h2>
+    <h2 id="typing-text"></h2>
     <button class="cta" id="lihatProyekBtn">Tentang Saya</button>
   </section>
 
@@ -153,95 +182,105 @@
     <button class="back-arrow" id="backBtn">Kembali</button>
   </section>
 
-  <!-- KEAHLIAN -->
+  <!-- Semua detail -->
   <section id="keahlian" class="detail">
     <h3>Keahlian Saya</h3>
     <div class="card-grid">
-      <div class="card"><h4>Teknik Jaringan</h4><p>Mampu merancang, mengkonfigurasi, dan memelihara jaringan LAN, WLAN, dan WAN dengan efisien.</p></div>
-      <div class="card"><h4>Keamanan Jaringan</h4><p>Mengerti dasar keamanan siber, konfigurasi firewall, dan pencegahan serangan siber sederhana.</p></div>
-      <div class="card"><h4>Desain Web</h4><p>Menguasai HTML, CSS, dan JavaScript untuk membuat website modern dan responsif.</p></div>
-      <div class="card"><h4>Administrasi Sistem</h4><p>Menginstal, mengelola, dan melakukan troubleshooting sistem operasi seperti Windows Server & Linux.</p></div>
-      <div class="card"><h4>Konfigurasi Mikrotik</h4><p>Berpengalaman dalam setup hotspot, manajemen bandwidth, dan routing pada perangkat Mikrotik.</p></div>
-      <div class="card"><h4>Hardware & Software</h4><p>Dapat melakukan perawatan dan perbaikan perangkat keras komputer serta instalasi software.</p></div>
-      <div class="card"><h4>Editing & Multimedia</h4><p>Mampu menggunakan aplikasi seperti Photoshop dan Canva untuk desain sederhana.</p></div>
+      <div class="card"><h4>Teknik Jaringan</h4><p>Mampu merancang dan mengelola jaringan LAN, WLAN, dan WAN secara efisien.</p></div>
+      <div class="card"><h4>Keamanan Jaringan</h4><p>Mengerti dasar keamanan siber dan konfigurasi firewall.</p></div>
+      <div class="card"><h4>Desain Web</h4><p>Menguasai HTML, CSS, dan JavaScript untuk membuat web responsif.</p></div>
+      <div class="card"><h4>Administrasi Sistem</h4><p>Mengelola sistem operasi Windows Server & Linux.</p></div>
+      <div class="card"><h4>Konfigurasi Mikrotik</h4><p>Setup hotspot, manajemen bandwidth, dan routing Mikrotik.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
-  <!-- PENGALAMAN -->
   <section id="pengalaman" class="detail">
     <h3>Pengalaman Pribadi</h3>
     <div class="card-grid">
-      <div class="card"><h4>Proyek Website Pribadi</h4><p>Membangun dan mengembangkan website portofolio menggunakan HTML, CSS, dan JavaScript.</p></div>
-      <div class="card"><h4>Simulasi Server</h4><p>Membuat server lokal menggunakan VirtualBox dan Ubuntu Server untuk belajar jaringan virtual.</p></div>
-      <div class="card"><h4>Perawatan Komputer</h4><p>Melakukan pembersihan, instalasi ulang OS, dan perawatan hardware di lingkungan sekolah.</p></div>
-      <div class="card"><h4>Desain Poster</h4><p>Membuat desain promosi kegiatan sekolah menggunakan Canva dan Photoshop.</p></div>
-      <div class="card"><h4>Pelatihan Online</h4><p>Mengikuti pelatihan daring mengenai keamanan jaringan dan pengelolaan server dasar.</p></div>
+      <div class="card"><h4>Magang Jaringan</h4><p>Melakukan pemasangan kabel jaringan, setting router, dan maintenance sistem.</p></div>
+      <div class="card"><h4>Proyek Web</h4><p>Membuat website sederhana untuk portofolio pribadi dan sekolah.</p></div>
+      <div class="card"><h4>Tim IT Sekolah</h4><p>Membantu dalam troubleshooting komputer dan perawatan lab komputer.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
-  <!-- PENGALAMAN TKJ -->
   <section id="karier" class="detail">
     <h3>Pengalaman di TKJ</h3>
     <div class="card-grid">
-      <div class="card"><h4>Instalasi LAN</h4><p>Menggambar topologi jaringan dan melakukan konfigurasi IP serta pengujian konektivitas antar perangkat.</p></div>
-      <div class="card"><h4>Maintenance Jaringan</h4><p>Melakukan pengecekan kabel UTP, router, dan switch serta mengatasi gangguan koneksi.</p></div>
-      <div class="card"><h4>Praktik PKL</h4><p>Melaksanakan PKL di perusahaan yang bergerak di bidang teknologi informasi dan jaringan.</p></div>
-      <div class="card"><h4>Konfigurasi Mikrotik</h4><p>Melatih konfigurasi hotspot, DHCP server, dan firewall rule pada Mikrotik RouterOS.</p></div>
-      <div class="card"><h4>Cloud Networking</h4><p>Mempelajari dasar penggunaan layanan cloud untuk penyimpanan dan kolaborasi jaringan.</p></div>
+      <div class="card"><h4>Konfigurasi Router</h4><p>Mengatur IP, routing, NAT, dan firewall di Mikrotik.</p></div>
+      <div class="card"><h4>Pemasangan LAN</h4><p>Mengukur panjang kabel, crimping RJ45, dan testing jaringan.</p></div>
+      <div class="card"><h4>Server Sekolah</h4><p>Mengelola file server internal sekolah menggunakan Windows Server.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
-  <!-- VISI & MISI -->
   <section id="visi" class="detail">
     <h3>Visi dan Misi</h3>
     <div class="card-grid">
-      <div class="card"><h4>Visi</h4><p>Menjadi teknisi jaringan profesional yang kreatif, inovatif, dan mampu menghadapi perkembangan teknologi global.</p></div>
-      <div class="card"><h4>Misi 1</h4><p>Terus belajar dan memperdalam ilmu teknologi jaringan dengan konsisten.</p></div>
-      <div class="card"><h4>Misi 2</h4><p>Menjaga kejujuran, kedisiplinan, dan tanggung jawab dalam setiap pekerjaan.</p></div>
-      <div class="card"><h4>Misi 3</h4><p>Menciptakan solusi teknologi yang efisien, ramah pengguna, dan bermanfaat bagi masyarakat.</p></div>
+      <div class="card"><h4>Visi</h4><p>Menjadi individu yang berkompeten dan profesional dalam bidang teknologi jaringan komputer.</p></div>
+      <div class="card"><h4>Misi</h4><p>1. Terus belajar dan berkembang.<br>2. Berkontribusi dalam dunia teknologi.<br>3. Menjaga integritas dan semangat kerja.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
-  <!-- PRINSIP -->
   <section id="prinsip" class="detail">
     <h3>Prinsip Hidup</h3>
     <div class="card-grid">
-      <div class="card"><h4>Belajar Tanpa Henti</h4><p>“Teknologi terus berkembang, maka belajar pun tidak boleh berhenti.”</p></div>
-      <div class="card"><h4>Integritas</h4><p>“Jujur dan bertanggung jawab adalah pondasi utama dalam bekerja.”</p></div>
-      <div class="card"><h4>Konsistensi</h4><p>“Kesuksesan datang dari hal kecil yang dilakukan secara konsisten.”</p></div>
-      <div class="card"><h4>Kerjasama</h4><p>“Tidak ada hasil besar tanpa tim yang solid dan komunikasi yang baik.”</p></div>
-      <div class="card"><h4>Inovasi</h4><p>“Berani mencoba hal baru untuk menciptakan perubahan yang lebih baik.”</p></div>
+      <div class="card"><h4>Disiplin</h4><p>Selalu menghargai waktu dan tanggung jawab.</p></div>
+      <div class="card"><h4>Jujur</h4><p>Menjalankan pekerjaan dengan kejujuran dan integritas.</p></div>
+      <div class="card"><h4>Berusaha Maksimal</h4><p>Tidak takut gagal, karena setiap kegagalan adalah pelajaran.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
-  <!-- KONTAK (tidak diubah) -->
   <section id="kontak" class="detail">
     <h3>Kontak Saya</h3>
     <div class="card-grid">
-      <div class="card"><h4><i class="fa-brands fa-instagram"></i> Instagram</h4><a href="https://instagram.com/bagas_saputra" target="_blank">Bagas Saputra</a></div>
-      <div class="card"><h4><i class="fa-brands fa-whatsapp"></i> WhatsApp</h4><a href="https://wa.me/6285183710837" target="_blank">085183710837</a></div>
-      <div class="card"><h4><i class="fa-solid fa-envelope"></i> Email</h4><a href="mailto:akuntopup836@gmail.com">akuntopup836@gmail.com</a></div>
+      <div class="card"><h4>Email</h4><p>akuntopup836@gmail.com</p></div>
+      <div class="card"><h4>WhatsApp</h4><p>085183710837</p></div>
+      <div class="card"><h4>Instagram</h4><p>@Bagas_Saputra</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
   <script>
+    /* ===== Efek Ngetik ===== */
     const welcome = document.getElementById("welcome");
     welcome.addEventListener("animationend", () => welcome.remove());
 
+    const typingTarget = document.getElementById("typing-text");
+    const lihatProyekBtn = document.getElementById("lihatProyekBtn");
+    const text = "Pelajar Teknik Komputer dan Jaringan";
+    let i = 0;
+    function typeEffect() {
+      if (i < text.length) {
+        typingTarget.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, 80);
+      } else {
+        typingTarget.classList.add("done");
+        setTimeout(() => {
+          lihatProyekBtn.style.opacity = "1";
+          lihatProyekBtn.style.transform = "translateY(0)";
+        }, 300);
+      }
+    }
+    window.addEventListener("load", () => {
+      lihatProyekBtn.style.opacity = "0";
+      lihatProyekBtn.style.transform = "translateY(20px)";
+      lihatProyekBtn.style.transition = "all 0.6s ease";
+      setTimeout(typeEffect, 3600);
+    });
+
+    /* ===== Navigasi Halaman ===== */
     const beranda = document.getElementById("beranda");
     const proyek = document.getElementById("proyek");
-    const lihat = document.getElementById("lihatProyekBtn");
     const back = document.getElementById("backBtn");
     const menuItems = document.querySelectorAll(".menu-item");
     const backMenus = document.querySelectorAll(".backMenu");
 
-    lihat.addEventListener("click", () => {
+    lihatProyekBtn.addEventListener("click", () => {
       beranda.style.opacity = "0";
       setTimeout(() => {
         beranda.style.display = "none";
@@ -267,7 +306,6 @@
           proyek.style.display = "none";
           target.style.display = "flex";
           setTimeout(() => target.classList.add("visible"), 50);
-
           const cards = target.querySelectorAll(".card");
           cards.forEach((card, i) => {
             card.classList.remove("show");
@@ -293,6 +331,65 @@
     const profilHeader = document.getElementById("profilHeader");
     profilHeader.addEventListener("click", () => photoPopup.classList.add("visible"));
     photoPopup.addEventListener("click", () => photoPopup.classList.remove("visible"));
+
+    /* ===== Animasi Topologi Jaringan ===== */
+    const canvas = document.getElementById("network-bg");
+    const ctx = canvas.getContext("2d");
+    let particlesArray;
+    const numParticles = 60;
+
+    function initParticles() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      particlesArray = [];
+      for (let i = 0; i < numParticles; i++) {
+        particlesArray.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          dx: (Math.random() - 0.5) * 1,
+          dy: (Math.random() - 0.5) * 1,
+          size: Math.random() * 2 + 1,
+        });
+      }
+    }
+
+    function connectParticles() {
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a; b < particlesArray.length; b++) {
+          let dx = particlesArray[a].x - particlesArray[b].x;
+          let dy = particlesArray[a].y - particlesArray[b].y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 100) {
+            ctx.strokeStyle = "rgba(100,160,255," + (1 - distance / 100) + ")";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of particlesArray) {
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        ctx.fillStyle = "rgba(100,160,255,0.8)";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      connectParticles();
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+    window.addEventListener("resize", initParticles);
   </script>
 </body>
 </html>
