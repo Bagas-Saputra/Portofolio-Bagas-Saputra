@@ -77,7 +77,6 @@
       object-fit:cover;box-shadow:0 0 30px rgba(0,120,255,.4);
       transform:scale(0.8);animation:zoomIn .4s ease forwards;
 
-      /* Tambahan keamanan gambar */
       -webkit-user-drag: none;
       user-select: none;
       pointer-events: auto;
@@ -178,10 +177,7 @@
     .card h4{color:var(--primary);margin-bottom:.4rem;}
     .card p, .card a{color:var(--muted);font-size:.95rem;text-decoration:none;}
 
-    .card i {
-      margin-right: 8px;
-      color: var(--primary);
-    }
+    .card i {margin-right: 8px;color: var(--primary);}
   </style>
 </head>
 <body>
@@ -218,8 +214,65 @@
     <button class="back-arrow" id="backBtn">Kembali</button>
   </section>
 
-  <!-- === Bagian Detail (sama seperti sebelumnya, tidak diubah) === -->
-  <!-- ... [semua section keahlian, pengalaman, karier, visi, prinsip, kontak tetap sama seperti kode kamu di atas] ... -->
+  <!-- === Bagian Detail Lengkap === -->
+
+  <section id="keahlian" class="detail">
+    <h2>Keahlian Saya</h2>
+    <div class="card-grid">
+      <div class="card"><h4><i class="fa-solid fa-network-wired"></i>Jaringan Komputer</h4><p>Mampu merancang dan mengkonfigurasi jaringan LAN, serta memahami topologi dan perangkat jaringan.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-computer"></i>Perakitan Komputer</h4><p>Menguasai teknik perakitan dan perawatan komputer, serta instalasi sistem operasi.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-terminal"></i>Pemrograman Dasar</h4><p>Memahami dasar logika pemrograman dan penggunaan bahasa seperti HTML, CSS, dan JavaScript.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-server"></i>Administrasi Server</h4><p>Dapat melakukan konfigurasi server dasar (FTP, DNS, DHCP) menggunakan Linux maupun Windows Server.</p></div>
+    </div>
+    <button class="back-arrow backMenu">Kembali</button>
+  </section>
+
+  <section id="pengalaman" class="detail">
+    <h2>Pengalaman Pribadi</h2>
+    <div class="card-grid">
+      <div class="card"><h4><i class="fa-solid fa-user-gear"></i>Teknisi Komputer</h4><p>Pernah membantu memperbaiki komputer dan laptop di lingkungan sekolah dan rumah, termasuk instalasi ulang OS dan troubleshooting.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-code"></i>Web Sederhana</h4><p>Membuat website portofolio pribadi menggunakan HTML, CSS, dan animasi dasar untuk tampilan interaktif.</p></div>
+    </div>
+    <button class="back-arrow backMenu">Kembali</button>
+  </section>
+
+  <section id="karier" class="detail">
+    <h2>Pengalaman di TKJ</h2>
+    <div class="card-grid">
+      <div class="card"><h4><i class="fa-solid fa-router"></i>Konfigurasi Jaringan</h4><p>Melakukan praktik langsung dalam merancang dan mengatur jaringan menggunakan router, switch, dan kabel UTP.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-server"></i>Server Sekolah</h4><p>Terlibat dalam simulasi pembuatan server sekolah berbasis Linux untuk file sharing antar komputer.</p></div>
+    </div>
+    <button class="back-arrow backMenu">Kembali</button>
+  </section>
+
+  <section id="visi" class="detail">
+    <h2>Visi dan Misi</h2>
+    <div class="card-grid">
+      <div class="card"><h4><i class="fa-solid fa-eye"></i>Visi</h4><p>Menjadi teknisi jaringan dan IT support yang profesional dan berintegritas tinggi.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-bullseye"></i>Misi</h4><p>Mengembangkan kemampuan di bidang jaringan, memperluas wawasan teknologi, dan terus belajar agar mampu bersaing di dunia industri IT.</p></div>
+    </div>
+    <button class="back-arrow backMenu">Kembali</button>
+  </section>
+
+  <section id="prinsip" class="detail">
+    <h2>Prinsip Hidup</h2>
+    <div class="card-grid">
+      <div class="card"><h4><i class="fa-solid fa-heart"></i>Integritas</h4><p>Selalu berusaha jujur dan bertanggung jawab dalam setiap pekerjaan.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-rocket"></i>Belajar Tanpa Henti</h4><p>Teknologi terus berkembang, maka belajar adalah kewajiban setiap hari.</p></div>
+      <div class="card"><h4><i class="fa-solid fa-handshake"></i>Kerja Sama</h4><p>Berhasil bukan karena sendiri, tapi karena bisa bekerja sama dengan tim.</p></div>
+    </div>
+    <button class="back-arrow backMenu">Kembali</button>
+  </section>
+
+  <section id="kontak" class="detail">
+    <h2>Kontak Saya</h2>
+    <div class="card-grid">
+      <div class="card"><h4><i class="fa-solid fa-envelope"></i>Email</h4><p>bagas@example.com</p></div>
+      <div class="card"><h4><i class="fa-brands fa-whatsapp"></i>WhatsApp</h4><p>+62 812-3456-7890</p></div>
+      <div class="card"><h4><i class="fa-brands fa-instagram"></i>Instagram</h4><a href="#">@bagas.tkj</a></div>
+    </div>
+    <button class="back-arrow backMenu">Kembali</button>
+  </section>
 
   <script>
     const welcome = document.getElementById("welcome");
@@ -269,48 +322,41 @@
       setTimeout(() => {
         proyek.style.display = "none";
         beranda.style.display = "flex";
-        setTimeout(() => (beranda.style.opacity = "1"), 50);
-      }, 300);
+        setTimeout(() => beranda.style.opacity = "1", 50);
+      }, 400);
     });
 
-    menuItems.forEach((item) => {
-      item.addEventListener("click", () => {
-        const target = document.getElementById(item.dataset.target);
+    menuItems.forEach(btn => {
+      btn.addEventListener("click", () => {
         proyek.classList.remove("visible");
         setTimeout(() => {
           proyek.style.display = "none";
+          const target = document.getElementById(btn.dataset.target);
           target.style.display = "flex";
           setTimeout(() => target.classList.add("visible"), 50);
           const cards = target.querySelectorAll(".card");
-          cards.forEach((card, index) => {
-            setTimeout(() => card.classList.add("show"), index * 150);
-          });
-        }, 300);
+          cards.forEach((c, idx) => setTimeout(() => c.classList.add("show"), 150 * idx));
+        }, 400);
       });
     });
 
-    backMenus.forEach((btn) => {
+    backMenus.forEach(btn => {
       btn.addEventListener("click", () => {
-        const parent = btn.closest(".detail");
-        parent.classList.remove("visible");
+        const section = btn.closest(".detail");
+        section.classList.remove("visible");
         setTimeout(() => {
-          parent.style.display = "none";
+          section.style.display = "none";
           proyek.style.display = "flex";
           setTimeout(() => proyek.classList.add("visible"), 50);
-        }, 300);
+        }, 400);
       });
     });
 
     const profilHeader = document.getElementById("profilHeader");
     const photoPopup = document.getElementById("photoPopup");
-
     profilHeader.addEventListener("click", () => photoPopup.classList.add("visible"));
     photoPopup.addEventListener("click", () => photoPopup.classList.remove("visible"));
-
-    // === Tambahan: Nonaktifkan klik kanan & drag di foto popup ===
-    const popupImage = document.querySelector("#photoPopup img");
-    popupImage.addEventListener("contextmenu", (e) => e.preventDefault());
-    popupImage.addEventListener("dragstart", (e) => e.preventDefault());
   </script>
 </body>
 </html>
+
