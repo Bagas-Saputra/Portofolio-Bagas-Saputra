@@ -28,7 +28,6 @@
       scroll-behavior:smooth;
     }
 
-    /* Welcome */
     #welcome {
       position: fixed; inset: 0;
       display: flex; align-items: center; justify-content: center;
@@ -39,7 +38,6 @@
     }
     @keyframes fadeOutWelcome {0%,70%{opacity:1}100%{opacity:0;visibility:hidden}}
 
-    /* Header */
     .header-profil{
       position:fixed;top:1rem;left:1rem;display:flex;align-items:center;gap:1rem;
       z-index:6;cursor:pointer;opacity:0;animation:fadeInHeader 2s ease 3s forwards;
@@ -53,7 +51,6 @@
     .header-profil h1{font-size:1.25rem;font-weight:600;}
     @keyframes fadeInHeader{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
 
-    /* Foto zoom popup */
     .photo-popup{
       position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
       background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);
@@ -67,7 +64,6 @@
     }
     @keyframes zoomIn{to{transform:scale(1);}}
 
-    /* Beranda */
     #beranda{
       position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
       text-align:center;z-index:5;opacity:0;animation:fadeInBeranda 1.4s ease 3.4s forwards;
@@ -83,7 +79,6 @@
     }
     .cta:hover{transform:translateY(-3px);box-shadow:0 16px 35px rgba(0,80,255,.3);}
 
-    /* Tentang Saya Menu */
     #proyek{
       position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:flex-start;
       padding-top:6rem;z-index:5;opacity:0;transition:opacity .4s ease;
@@ -102,17 +97,13 @@
     .back-arrow{border:1px solid rgba(255,255,255,.3);padding:.5rem 1rem;border-radius:20px;cursor:pointer;}
     .back-arrow:hover{background:rgba(255,255,255,.1);}
 
-    /* Detail Section + Animasi */
     .detail{
       display:none;flex-direction:column;align-items:center;padding:6rem 1.5rem 2rem;
       height:100%;overflow-y:auto;opacity:0;transition:opacity .6s ease, transform .6s ease;
       transform:translateY(20px);
     }
-    .detail.visible{
-      display:flex;opacity:1;transform:translateY(0);
-    }
+    .detail.visible{display:flex;opacity:1;transform:translateY(0);}
 
-    /* Card Animation */
     .card-grid{
       display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
       gap:1.2rem;margin:2rem 0;width:100%;max-width:900px;
@@ -124,9 +115,7 @@
       opacity:0;transform:translateY(25px);
       transition:all .6s ease;
     }
-    .card.show{
-      opacity:1;transform:translateY(0);
-    }
+    .card.show{opacity:1;transform:translateY(0);}
     .card:hover{transform:translateY(-6px) scale(1.02);background:rgba(0,80,255,0.1);}
     .card h4{color:var(--primary);margin-bottom:.4rem;}
     .card p, .card a{color:var(--muted);font-size:.95rem;text-decoration:none;}
@@ -151,7 +140,6 @@
     <button class="cta" id="lihatProyekBtn">Tentang Saya</button>
   </section>
 
-  <!-- MENU UTAMA -->
   <section id="proyek">
     <h2>Tentang Saya</h2>
     <div class="menu-list">
@@ -165,56 +153,73 @@
     <button class="back-arrow" id="backBtn">Kembali</button>
   </section>
 
-  <!-- SEMUA DETAIL -->
+  <!-- KEAHLIAN -->
   <section id="keahlian" class="detail">
     <h3>Keahlian Saya</h3>
     <div class="card-grid">
-      <div class="card"><h4>Teknik Jaringan</h4><p>Mampu merancang dan memelihara jaringan LAN/WAN dengan efisien.</p></div>
-      <div class="card"><h4>Keamanan Jaringan</h4><p>Mengerti dasar keamanan siber dan konfigurasi firewall.</p></div>
-      <div class="card"><h4>Desain Web</h4><p>Menguasai HTML, CSS, dan JavaScript dasar.</p></div>
+      <div class="card"><h4>Teknik Jaringan</h4><p>Mampu merancang, mengkonfigurasi, dan memelihara jaringan LAN, WLAN, dan WAN dengan efisien.</p></div>
+      <div class="card"><h4>Keamanan Jaringan</h4><p>Mengerti dasar keamanan siber, konfigurasi firewall, dan pencegahan serangan siber sederhana.</p></div>
+      <div class="card"><h4>Desain Web</h4><p>Menguasai HTML, CSS, dan JavaScript untuk membuat website modern dan responsif.</p></div>
+      <div class="card"><h4>Administrasi Sistem</h4><p>Menginstal, mengelola, dan melakukan troubleshooting sistem operasi seperti Windows Server & Linux.</p></div>
+      <div class="card"><h4>Konfigurasi Mikrotik</h4><p>Berpengalaman dalam setup hotspot, manajemen bandwidth, dan routing pada perangkat Mikrotik.</p></div>
+      <div class="card"><h4>Hardware & Software</h4><p>Dapat melakukan perawatan dan perbaikan perangkat keras komputer serta instalasi software.</p></div>
+      <div class="card"><h4>Editing & Multimedia</h4><p>Mampu menggunakan aplikasi seperti Photoshop dan Canva untuk desain sederhana.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
+  <!-- PENGALAMAN -->
   <section id="pengalaman" class="detail">
     <h3>Pengalaman Pribadi</h3>
     <div class="card-grid">
-      <div class="card"><h4>Proyek Website</h4><p>Membangun website pribadi dengan HTML dan CSS responsif.</p></div>
-      <div class="card"><h4>Simulasi Server</h4><p>Membuat server lokal dengan VirtualBox dan Linux.</p></div>
-      <div class="card"><h4>Perawatan Komputer</h4><p>Memperbaiki perangkat dan membantu tim IT sekolah.</p></div>
+      <div class="card"><h4>Proyek Website Pribadi</h4><p>Membangun dan mengembangkan website portofolio menggunakan HTML, CSS, dan JavaScript.</p></div>
+      <div class="card"><h4>Simulasi Server</h4><p>Membuat server lokal menggunakan VirtualBox dan Ubuntu Server untuk belajar jaringan virtual.</p></div>
+      <div class="card"><h4>Perawatan Komputer</h4><p>Melakukan pembersihan, instalasi ulang OS, dan perawatan hardware di lingkungan sekolah.</p></div>
+      <div class="card"><h4>Desain Poster</h4><p>Membuat desain promosi kegiatan sekolah menggunakan Canva dan Photoshop.</p></div>
+      <div class="card"><h4>Pelatihan Online</h4><p>Mengikuti pelatihan daring mengenai keamanan jaringan dan pengelolaan server dasar.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
+  <!-- PENGALAMAN TKJ -->
   <section id="karier" class="detail">
     <h3>Pengalaman di TKJ</h3>
     <div class="card-grid">
-      <div class="card"><h4>Instalasi LAN</h4><p>Membuat topologi jaringan dan konfigurasi IP.</p></div>
-      <div class="card"><h4>Maintenance</h4><p>Pengecekan kabel dan router mikrotik.</p></div>
-      <div class="card"><h4>Praktik PKL</h4><p>Mengikuti kegiatan PKL di bidang jaringan komputer.</p></div>
+      <div class="card"><h4>Instalasi LAN</h4><p>Menggambar topologi jaringan dan melakukan konfigurasi IP serta pengujian konektivitas antar perangkat.</p></div>
+      <div class="card"><h4>Maintenance Jaringan</h4><p>Melakukan pengecekan kabel UTP, router, dan switch serta mengatasi gangguan koneksi.</p></div>
+      <div class="card"><h4>Praktik PKL</h4><p>Melaksanakan PKL di perusahaan yang bergerak di bidang teknologi informasi dan jaringan.</p></div>
+      <div class="card"><h4>Konfigurasi Mikrotik</h4><p>Melatih konfigurasi hotspot, DHCP server, dan firewall rule pada Mikrotik RouterOS.</p></div>
+      <div class="card"><h4>Cloud Networking</h4><p>Mempelajari dasar penggunaan layanan cloud untuk penyimpanan dan kolaborasi jaringan.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
+  <!-- VISI & MISI -->
   <section id="visi" class="detail">
     <h3>Visi dan Misi</h3>
     <div class="card-grid">
-      <div class="card"><h4>Visi</h4><p>Menjadi teknisi profesional yang berintegritas dan adaptif.</p></div>
-      <div class="card"><h4>Misi</h4><p>Terus belajar, jujur, dan membuat solusi jaringan efisien.</p></div>
+      <div class="card"><h4>Visi</h4><p>Menjadi teknisi jaringan profesional yang kreatif, inovatif, dan mampu menghadapi perkembangan teknologi global.</p></div>
+      <div class="card"><h4>Misi 1</h4><p>Terus belajar dan memperdalam ilmu teknologi jaringan dengan konsisten.</p></div>
+      <div class="card"><h4>Misi 2</h4><p>Menjaga kejujuran, kedisiplinan, dan tanggung jawab dalam setiap pekerjaan.</p></div>
+      <div class="card"><h4>Misi 3</h4><p>Menciptakan solusi teknologi yang efisien, ramah pengguna, dan bermanfaat bagi masyarakat.</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
+  <!-- PRINSIP -->
   <section id="prinsip" class="detail">
     <h3>Prinsip Hidup</h3>
     <div class="card-grid">
-      <div class="card"><h4>Belajar Tanpa Henti</h4><p>“Teknologi tidak pernah berhenti berkembang.”</p></div>
-      <div class="card"><h4>Integritas</h4><p>“Bekerja dengan jujur dan bertanggung jawab.”</p></div>
-      <div class="card"><h4>Konsistensi</h4><p>“Hasil besar dari kebiasaan kecil yang konsisten.”</p></div>
+      <div class="card"><h4>Belajar Tanpa Henti</h4><p>“Teknologi terus berkembang, maka belajar pun tidak boleh berhenti.”</p></div>
+      <div class="card"><h4>Integritas</h4><p>“Jujur dan bertanggung jawab adalah pondasi utama dalam bekerja.”</p></div>
+      <div class="card"><h4>Konsistensi</h4><p>“Kesuksesan datang dari hal kecil yang dilakukan secara konsisten.”</p></div>
+      <div class="card"><h4>Kerjasama</h4><p>“Tidak ada hasil besar tanpa tim yang solid dan komunikasi yang baik.”</p></div>
+      <div class="card"><h4>Inovasi</h4><p>“Berani mencoba hal baru untuk menciptakan perubahan yang lebih baik.”</p></div>
     </div>
     <button class="back-arrow backMenu">Kembali</button>
   </section>
 
+  <!-- KONTAK (tidak diubah) -->
   <section id="kontak" class="detail">
     <h3>Kontak Saya</h3>
     <div class="card-grid">
@@ -254,7 +259,6 @@
       }, 300);
     });
 
-    // Tampilkan semua detail pakai animasi seragam
     menuItems.forEach((item) => {
       item.addEventListener("click", () => {
         const target = document.getElementById(item.dataset.target);
@@ -264,7 +268,6 @@
           target.style.display = "flex";
           setTimeout(() => target.classList.add("visible"), 50);
 
-          // Animasi tiap card muncul berurutan
           const cards = target.querySelectorAll(".card");
           cards.forEach((card, i) => {
             card.classList.remove("show");
@@ -274,7 +277,6 @@
       });
     });
 
-    // Tombol kembali ke menu utama
     backMenus.forEach((btn) => {
       btn.addEventListener("click", () => {
         const parent = btn.closest(".detail");
@@ -287,7 +289,6 @@
       });
     });
 
-    // Zoom foto profil
     const photoPopup = document.getElementById("photoPopup");
     const profilHeader = document.getElementById("profilHeader");
     profilHeader.addEventListener("click", () => photoPopup.classList.add("visible"));
