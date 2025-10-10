@@ -6,6 +6,9 @@
   <meta name="description" content="Portofolio Bagas Saputra - Pelajar Teknik Komputer dan Jaringan" />
   <title>Portofolio Bagas Saputra</title>
 
+  <!-- favicon / foto tab (versi A) -->
+  <link rel="icon" href="icon.jpeg" type="image/jpeg">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
@@ -47,7 +50,7 @@
     .photo-wrap img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none;user-select:none;}
 
     /* beranda */
-    #beranda{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:5;opacity:0;animation:fadeInBeranda 1.4s ease 3.4s forwards;}
+    #beranda{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:5;opacity:0;animation:fadeInBeranda 1.4s ease 3.4s forwards;padding:1.2rem;}
     @keyframes fadeInBeranda{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
     #beranda h1{font-size:2.6rem;text-shadow:0 0 20px rgba(0,140,255,.6);}
     #beranda h2{font-size:1rem;color:var(--muted);margin:1rem 0 1.4rem;border-right:2px solid var(--primary);white-space:nowrap;overflow:hidden;}
@@ -91,19 +94,21 @@
     .card a:hover{color:var(--primary);text-decoration:underline}
     .card i{margin-right:8px;color:var(--primary)}
 
+    /* responsive */
     @media (max-width:520px){
       #beranda h1{font-size:1.6rem}
       #welcome{font-size:2rem}
       .header-profil h1{display:none}
       .photo-wrap{width:220px;height:220px}
       .card-grid{gap:.9rem}
+      .menu-item{font-size:.98rem}
     }
   </style>
 </head>
 <body>
   <canvas id="network-bg" aria-hidden="true"></canvas>
 
-  <div id="welcome">Welcome</div>
+  <div id="welcome" aria-hidden="true">Welcome</div>
 
   <div class="header-profil" id="profilHeader" title="Klik untuk memperbesar foto" role="button" tabindex="0">
     <div class="photo-container" id="headerPhoto" style="background-image:url('icon.jpeg')">
@@ -121,20 +126,20 @@
   <section id="beranda" aria-label="Beranda">
     <h1>Hai, Saya Bagas Saputra</h1>
     <h2 id="typing-text" aria-live="polite"></h2>
-    <button class="cta" id="lihatProyekBtn">Tentang Saya</button>
+    <button class="cta" id="lihatProyekBtn" aria-controls="proyek">Tentang Saya</button>
   </section>
 
   <section id="proyek" aria-label="Menu Tentang Saya">
     <h2 style="margin-top:1rem">Tentang Saya</h2>
-    <div class="menu-list">
-      <div class="menu-item" data-target="keahlian" tabindex="0">Keahlian Saya</div>
-      <div class="menu-item" data-target="pengalaman" tabindex="0">Pengalaman Pribadi</div>
-      <div class="menu-item" data-target="karier" tabindex="0">Pengalaman di TKJ</div>
-      <div class="menu-item" data-target="visi" tabindex="0">Visi dan Misi</div>
-      <div class="menu-item" data-target="prinsip" tabindex="0">Prinsip Hidup</div>
-      <div class="menu-item" data-target="kontak" tabindex="0">Kontak Saya</div>
+    <div class="menu-list" role="list">
+      <div class="menu-item" data-target="keahlian" tabindex="0" role="listitem">Keahlian Saya</div>
+      <div class="menu-item" data-target="pengalaman" tabindex="0" role="listitem">Pengalaman Pribadi</div>
+      <div class="menu-item" data-target="karier" tabindex="0" role="listitem">Pengalaman di TKJ</div>
+      <div class="menu-item" data-target="visi" tabindex="0" role="listitem">Visi dan Misi</div>
+      <div class="menu-item" data-target="prinsip" tabindex="0" role="listitem">Prinsip Hidup</div>
+      <div class="menu-item" data-target="kontak" tabindex="0" role="listitem">Kontak Saya</div>
     </div>
-    <button class="back-arrow" id="backBtn">Kembali</button>
+    <button class="back-arrow" id="backBtn" aria-label="Kembali ke Beranda">Kembali</button>
   </section>
 
   <!-- DETAIL SECTIONS (lengkap) -->
@@ -146,7 +151,7 @@
       <div class="card"><h4><i class="fa-solid fa-terminal"></i>Pemrograman Dasar</h4><p>Memahami HTML, CSS, JavaScript dasar; mampu membuat antarmuka web sederhana dan menambahkan interaktivitas.</p></div>
       <div class="card"><h4><i class="fa-solid fa-server"></i>Administrasi Server</h4><p>Dasar konfigurasi server (FTP, DNS, DHCP), pemahaman sistem operasi Linux, dan manajemen layanan jaringan.</p></div>
     </div>
-    <button class="back-arrow backMenu">Kembali</button>
+    <button class="back-arrow backMenu" aria-label="Kembali ke Menu Tentang Saya">Kembali</button>
   </section>
 
   <section id="pengalaman" class="detail" aria-label="Pengalaman Pribadi">
@@ -155,7 +160,7 @@
       <div class="card"><h4><i class="fa-solid fa-user-gear"></i>Teknisi Komputer</h4><p>Pernah membantu memperbaiki komputer dan laptop di lingkungan sekolah dan rumah, termasuk instalasi ulang OS dan troubleshooting umum.</p></div>
       <div class="card"><h4><i class="fa-solid fa-code"></i>Web Sederhana</h4><p>Membuat website portofolio pribadi menggunakan HTML, CSS, dan animasi dasar untuk tampilan interaktif.</p></div>
     </div>
-    <button class="back-arrow backMenu">Kembali</button>
+    <button class="back-arrow backMenu" aria-label="Kembali ke Menu Tentang Saya">Kembali</button>
   </section>
 
   <section id="karier" class="detail" aria-label="Pengalaman di TKJ">
@@ -164,7 +169,7 @@
       <div class="card"><h4><i class="fa-solid fa-router"></i>Konfigurasi Jaringan</h4><p>Melakukan praktik langsung merancang dan mengatur jaringan menggunakan router, switch, serta kabel UTP dan teknik crimping.</p></div>
       <div class="card"><h4><i class="fa-solid fa-server"></i>Server Sekolah</h4><p>Terlibat dalam simulasi pembuatan server berbasis Linux untuk file sharing dan layanan dasar antar komputer laboratorium.</p></div>
     </div>
-    <button class="back-arrow backMenu">Kembali</button>
+    <button class="back-arrow backMenu" aria-label="Kembali ke Menu Tentang Saya">Kembali</button>
   </section>
 
   <section id="visi" class="detail" aria-label="Visi dan Misi">
@@ -173,7 +178,7 @@
       <div class="card"><h4><i class="fa-solid fa-eye"></i>Visi</h4><p>Menjadi teknisi jaringan dan IT support yang profesional dan berintegritas tinggi.</p></div>
       <div class="card"><h4><i class="fa-solid fa-bullseye"></i>Misi</h4><p>Mengembangkan kemampuan di bidang jaringan, memperluas wawasan teknologi, serta konsisten belajar agar siap industri.</p></div>
     </div>
-    <button class="back-arrow backMenu">Kembali</button>
+    <button class="back-arrow backMenu" aria-label="Kembali ke Menu Tentang Saya">Kembali</button>
   </section>
 
   <section id="prinsip" class="detail" aria-label="Prinsip Hidup">
@@ -183,7 +188,7 @@
       <div class="card"><h4><i class="fa-solid fa-rocket"></i>Belajar Tanpa Henti</h4><p>Teknologi berkembang cepat — terus memperbarui keterampilan adalah prioritas.</p></div>
       <div class="card"><h4><i class="fa-solid fa-handshake"></i>Kerja Sama</h4><p>Keberhasilan tim lebih penting daripada hanya pencapaian individu.</p></div>
     </div>
-    <button class="back-arrow backMenu">Kembali</button>
+    <button class="back-arrow backMenu" aria-label="Kembali ke Menu Tentang Saya">Kembali</button>
   </section>
 
   <section id="kontak" class="detail" aria-label="Kontak">
@@ -193,7 +198,7 @@
       <div class="card"><h4><i class="fa-brands fa-whatsapp"></i>WhatsApp</h4><a href="https://wa.me/6285183710837" target="_blank" rel="noopener noreferrer">+62 851-8371-0837</a></div>
       <div class="card"><h4><i class="fa-brands fa-instagram"></i>Instagram</h4><a href="https://instagram.com/edds_zl" target="_blank" rel="noopener noreferrer">@edds_zl</a></div>
     </div>
-    <button class="back-arrow backMenu">Kembali</button>
+    <button class="back-arrow backMenu" aria-label="Kembali ke Menu Tentang Saya">Kembali</button>
   </section>
 
   <script>
@@ -387,16 +392,9 @@
       btn.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); btn.click(); }});
     });
 
-    /* ---------- Protections (scoped to images) ---------- */
-    // Prevent right-click only on images/photo containers
-    document.addEventListener('contextmenu', (e)=>{
-      try {
-        const t = e.target;
-        if(!t) return;
-        const inPhoto = t.tagName === 'IMG' || t.closest && (t.closest('.photo-container') || t.closest('.photo-wrap'));
-        if(inPhoto) e.preventDefault();
-      } catch(err){ /* ignore */ }
-    });
+    /* ---------- Protections (scoped and global) ---------- */
+    // Prevent right-click on entire page (user requested)
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
 
     // Prevent dragstart only on images
     document.addEventListener('dragstart', (e)=>{
